@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package todopb;
+// option go_package = "mathieux51/todogrpc/pb";
+
+message TodoByIDRequest { int32 id = 1; }
+
+message TodoByIDResponse {
+  int32 id = 1;
+  string text = 2;
+  bool completed = 3;
+}
+
+service Todo {
+  rpc GetTodoByID(TodoByIDRequest) returns (TodoByIDResponse) {}
+}
