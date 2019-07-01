@@ -44,6 +44,6 @@ func main() {
 		log.Fatalf("failed to serve: %v", err)
 	}
 
-	log.Printf("Listening on port %v", port)
+	log.Printf("listening on port %v", port)
 	<-done
 }

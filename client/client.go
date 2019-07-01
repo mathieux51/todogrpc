@@ -22,6 +22,7 @@ func main() {
 	defer conn.Close()
 	c := pb.NewTodoClient(conn)
 
+	// GetTodoByID
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 	const ID = 1
@@ -30,4 +31,7 @@ func main() {
 		log.Fatalf("couldn't get todo (ID = %v): %v", ID, err)
 	}
 	log.Println(r)
+
+	// Client streaming
+
 }

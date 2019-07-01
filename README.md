@@ -2,7 +2,7 @@
 
 ## To do
 
-- [ ] Add client (Golang or JavaScript)
+- [x] Add client (Golang or JavaScript)
 - [ ] Client streaming
 - [ ] Server streaming
 - [ ] Add gqlgen

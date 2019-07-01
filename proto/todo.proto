@@ -11,6 +11,11 @@ message TodoByIDResponse {
   bool completed = 3;
 }
 
+message UploadImageRequest {}
+
+message UploadImageResponse {}
+
 service Todo {
   rpc GetTodoByID(TodoByIDRequest) returns (TodoByIDResponse) {}
+  rpc UploadImage(stream UploadImageRequest) returns (UploadImageResponse) {}
 }
