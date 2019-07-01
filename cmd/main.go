@@ -20,7 +20,7 @@ type todoServer struct{}
 
 func (s *todoServer) GetTodoByID(ctx context.Context, in *pb.TodoByIDRequest) (*pb.TodoByIDResponse, error) {
 	if md, ok := metadata.FromIncomingContext(ctx); ok {
-		log.Printf("Metadata: %v", md)
+		log.Printf("metadata: %v", md)
 	}
 
 	return &pb.TodoByIDResponse{Id: 1, Text: "Time to get Schwifty", Completed: false}, nil
@@ -36,8 +36,14 @@ func main() {
 
 	pb.RegisterTodoServer(s, &todoServer{})
 
-	if err := s.Serve(l); err != nil {
+	done := make(chan bool)
+	go func() {
+		err = s.Serve(l)
+	}()
+	if err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
+
 	log.Printf("Listening on port %v", port)
+	<-done
 }
