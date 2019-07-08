@@ -40,8 +40,8 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	// Init stream
-	stream, err := c.UploadImage(ctx)
+	// Init client side streaming
+	clientStream, err := c.UploadImage(ctx)
 	if err != nil {
 		log.Fatalf("%v.UploadImage(_) = _, %v", c, err)
 	}
@@ -54,18 +54,37 @@ func main() {
 	}
 
 	// send data
-	err = stream.Send(&pb.UploadImageRequest{Data: data})
+	err = clientStream.Send(&pb.UploadImageRequest{Data: data})
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// close stream
-	reply, err := stream.CloseAndRecv()
+	reply, err := clientStream.CloseAndRecv()
 	if err == io.EOF {
 		log.Println("all good")
 	}
 	if err != nil {
-		log.Fatalf("%v.CloseAndRecv() got error %v, want %v", stream, err, nil)
+		log.Fatalf("%v.CloseAndRecv() got error %v, want %v", clientStream, err, nil)
 	}
 	log.Print(reply)
+
+	// server side streaming
+	serverStream, err := c.DownloadImage(ctx, &pb.DownloadImageRequest{})
+	if err != nil {
+		log.Fatalf("%v.DownloadImage(_) = _, %v", c, err)
+	}
+	for {
+		res, err := serverStream.Recv()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			log.Fatalf("%v.DownloadImage(_) = _, %v", c, err)
+		}
+		err = ioutil.WriteFile("img/serversidestreaming.jpg", res.Data, 0644)
+		if err != nil {
+			log.Fatalf("%v.DownloadImage(_) = _, %v", c, err)
+		}
+	}
 }

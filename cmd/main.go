@@ -42,12 +42,23 @@ func (s *todoServer) UploadImage(stream pb.Todo_UploadImageServer) error {
 		if err != nil {
 			return err
 		}
-		err = ioutil.WriteFile("img/test.jpg", r.Data, 0644)
+		err = ioutil.WriteFile("img/clientsidestreaming.jpg", r.Data, 0644)
 		if err != nil {
 			return err
 		}
 	}
 
+}
+
+func (s *todoServer) DownloadImage(req *pb.DownloadImageRequest, stream pb.Todo_DownloadImageServer) error {
+	data, err := ioutil.ReadFile("img/getschwifty.jpg")
+	if err != nil {
+		return err
+	}
+	if err = stream.Send(&pb.DownloadImageResponse{Data: data}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func main() {

@@ -188,32 +188,106 @@ func (m *UploadImageResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_UploadImageResponse proto.InternalMessageInfo
 
+type DownloadImageRequest struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DownloadImageRequest) Reset()         { *m = DownloadImageRequest{} }
+func (m *DownloadImageRequest) String() string { return proto.CompactTextString(m) }
+func (*DownloadImageRequest) ProtoMessage()    {}
+func (*DownloadImageRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0e4b95d0c4e09639, []int{4}
+}
+
+func (m *DownloadImageRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DownloadImageRequest.Unmarshal(m, b)
+}
+func (m *DownloadImageRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DownloadImageRequest.Marshal(b, m, deterministic)
+}
+func (m *DownloadImageRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DownloadImageRequest.Merge(m, src)
+}
+func (m *DownloadImageRequest) XXX_Size() int {
+	return xxx_messageInfo_DownloadImageRequest.Size(m)
+}
+func (m *DownloadImageRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DownloadImageRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DownloadImageRequest proto.InternalMessageInfo
+
+type DownloadImageResponse struct {
+	Data                 []byte   `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DownloadImageResponse) Reset()         { *m = DownloadImageResponse{} }
+func (m *DownloadImageResponse) String() string { return proto.CompactTextString(m) }
+func (*DownloadImageResponse) ProtoMessage()    {}
+func (*DownloadImageResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0e4b95d0c4e09639, []int{5}
+}
+
+func (m *DownloadImageResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DownloadImageResponse.Unmarshal(m, b)
+}
+func (m *DownloadImageResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DownloadImageResponse.Marshal(b, m, deterministic)
+}
+func (m *DownloadImageResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DownloadImageResponse.Merge(m, src)
+}
+func (m *DownloadImageResponse) XXX_Size() int {
+	return xxx_messageInfo_DownloadImageResponse.Size(m)
+}
+func (m *DownloadImageResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_DownloadImageResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DownloadImageResponse proto.InternalMessageInfo
+
+func (m *DownloadImageResponse) GetData() []byte {
+	if m != nil {
+		return m.Data
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*TodoByIDRequest)(nil), "todopb.TodoByIDRequest")
 	proto.RegisterType((*TodoByIDResponse)(nil), "todopb.TodoByIDResponse")
 	proto.RegisterType((*UploadImageRequest)(nil), "todopb.UploadImageRequest")
 	proto.RegisterType((*UploadImageResponse)(nil), "todopb.UploadImageResponse")
+	proto.RegisterType((*DownloadImageRequest)(nil), "todopb.DownloadImageRequest")
+	proto.RegisterType((*DownloadImageResponse)(nil), "todopb.DownloadImageResponse")
 }
 
 func init() { proto.RegisterFile("todo.proto", fileDescriptor_0e4b95d0c4e09639) }
 
 var fileDescriptor_0e4b95d0c4e09639 = []byte{
-	// 226 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x6c, 0x90, 0xc1, 0x4a, 0x03, 0x31,
-	0x10, 0x86, 0xcd, 0xba, 0x16, 0x3b, 0x15, 0x95, 0x11, 0x31, 0xac, 0x1e, 0xd6, 0x9c, 0x72, 0xda,
-	0x83, 0xbe, 0x41, 0x11, 0xa4, 0x1e, 0x43, 0x7d, 0x80, 0xd4, 0x0c, 0x52, 0x68, 0x9d, 0xe8, 0x8e,
-	0xa0, 0x2f, 0xe2, 0xf3, 0x4a, 0xb3, 0x84, 0xd5, 0xdd, 0xde, 0x7e, 0x32, 0x1f, 0xff, 0x7c, 0x13,
-	0x00, 0xe1, 0xc0, 0x4d, 0xfc, 0x60, 0x61, 0x9c, 0xec, 0x72, 0x5c, 0x99, 0x5b, 0x38, 0x5b, 0x72,
-	0xe0, 0xf9, 0xf7, 0xe2, 0xc1, 0xd1, 0xfb, 0x27, 0xb5, 0x82, 0xa7, 0x50, 0xac, 0x83, 0x56, 0xb5,
-	0xb2, 0x47, 0xae, 0x58, 0x07, 0xb3, 0x84, 0xf3, 0x1e, 0x69, 0x23, 0xbf, 0xb5, 0x34, 0x64, 0x10,
-	0xa1, 0x14, 0xfa, 0x12, 0x5d, 0xd4, 0xca, 0x4e, 0x5d, 0xca, 0x78, 0x03, 0xd3, 0x17, 0xde, 0xc6,
-	0x0d, 0x09, 0x05, 0x7d, 0x58, 0x2b, 0x7b, 0xec, 0xfa, 0x07, 0x63, 0x01, 0x9f, 0xe3, 0x86, 0x7d,
-	0x58, 0x6c, 0xfd, 0x2b, 0xe5, 0xdd, 0x08, 0x65, 0xf0, 0xe2, 0x53, 0xf3, 0x89, 0x4b, 0xd9, 0x5c,
-	0xc2, 0xc5, 0x3f, 0xb2, 0x53, 0xb8, 0xfb, 0x51, 0x50, 0xee, 0xbc, 0x70, 0x0e, 0xb3, 0x47, 0x92,
-	0xac, 0x88, 0x57, 0x4d, 0x77, 0x5a, 0x33, 0xb8, 0xab, 0xd2, 0xe3, 0x41, 0x57, 0x65, 0x0e, 0xf0,
-	0x09, 0x66, 0x7f, 0x76, 0x60, 0x95, 0xd1, 0xb1, 0x62, 0x75, 0xbd, 0x77, 0x96, 0x9b, 0xac, 0x5a,
-	0x4d, 0xd2, 0x0f, 0xdf, 0xff, 0x06, 0x00, 0x00, 0xff, 0xff, 0x2c, 0x77, 0x5a, 0x1f, 0x6f, 0x01,
-	0x00, 0x00,
+	// 264 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x74, 0x51, 0xed, 0x4a, 0xc3, 0x40,
+	0x10, 0xf4, 0x62, 0x2c, 0x76, 0xea, 0x17, 0xab, 0xd5, 0x10, 0x2b, 0xc4, 0xfb, 0x75, 0x20, 0x04,
+	0xd1, 0x37, 0x28, 0x05, 0xa9, 0xbf, 0xe4, 0xa8, 0x0f, 0x90, 0x7a, 0x87, 0x14, 0xda, 0xee, 0x69,
+	0x4e, 0xd4, 0x37, 0xf6, 0x31, 0xa4, 0x69, 0x8f, 0xda, 0x34, 0xfe, 0x1b, 0x76, 0xe6, 0xe6, 0x66,
+	0x76, 0x01, 0xcf, 0x86, 0x73, 0xf7, 0xce, 0x9e, 0xa9, 0xb5, 0xc0, 0x6e, 0x2c, 0xaf, 0x71, 0x3c,
+	0x62, 0xc3, 0xfd, 0xef, 0xe1, 0x40, 0xdb, 0xb7, 0x0f, 0x5b, 0x7a, 0x3a, 0x42, 0x34, 0x31, 0x89,
+	0xc8, 0x84, 0xda, 0xd3, 0xd1, 0xc4, 0xc8, 0x11, 0x4e, 0xd6, 0x92, 0xd2, 0xf1, 0xbc, 0xb4, 0x75,
+	0x0d, 0x11, 0x62, 0x6f, 0xbf, 0x7c, 0x12, 0x65, 0x42, 0xb5, 0x75, 0x85, 0xa9, 0x87, 0xf6, 0x0b,
+	0xcf, 0xdc, 0xd4, 0x7a, 0x6b, 0x92, 0xdd, 0x4c, 0xa8, 0x7d, 0xbd, 0x1e, 0x48, 0x05, 0x7a, 0x76,
+	0x53, 0x2e, 0xcc, 0x70, 0x56, 0xbc, 0xda, 0xf0, 0x37, 0x21, 0x36, 0x85, 0x2f, 0x2a, 0xe7, 0x03,
+	0x5d, 0x61, 0xd9, 0xc5, 0xe9, 0x86, 0x72, 0x19, 0x41, 0x9e, 0xe3, 0x6c, 0xc0, 0x9f, 0xf3, 0xba,
+	0x85, 0xbc, 0x41, 0xb7, 0x36, 0x5f, 0x65, 0x6e, 0xf0, 0xbe, 0xfb, 0x11, 0x88, 0x17, 0xe5, 0xa8,
+	0x8f, 0xce, 0x83, 0xf5, 0xa1, 0x27, 0x5d, 0xe4, 0xcb, 0xfd, 0xe4, 0xb5, 0xe5, 0xa4, 0xc9, 0x36,
+	0xb1, 0xca, 0xb3, 0x43, 0x8f, 0xe8, 0xfc, 0x09, 0x4a, 0x69, 0x90, 0x6e, 0xf7, 0x4c, 0x2f, 0x1b,
+	0xb9, 0xe0, 0xa4, 0x04, 0x3d, 0xe1, 0x70, 0xa3, 0x05, 0xf5, 0xc2, 0x8b, 0xa6, 0xd2, 0xe9, 0xd5,
+	0x3f, 0x6c, 0x70, 0xbc, 0x15, 0xe3, 0x56, 0x75, 0xf8, 0xfb, 0xdf, 0x00, 0x00, 0x00, 0xff, 0xff,
+	0xc9, 0xc2, 0x5f, 0xfb, 0x06, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -230,6 +304,7 @@ const _ = grpc.SupportPackageIsVersion4
 type TodoClient interface {
 	GetTodoByID(ctx context.Context, in *TodoByIDRequest, opts ...grpc.CallOption) (*TodoByIDResponse, error)
 	UploadImage(ctx context.Context, opts ...grpc.CallOption) (Todo_UploadImageClient, error)
+	DownloadImage(ctx context.Context, in *DownloadImageRequest, opts ...grpc.CallOption) (Todo_DownloadImageClient, error)
 }
 
 type todoClient struct {
@@ -283,10 +358,43 @@ func (x *todoUploadImageClient) CloseAndRecv() (*UploadImageResponse, error) {
 	return m, nil
 }
 
+func (c *todoClient) DownloadImage(ctx context.Context, in *DownloadImageRequest, opts ...grpc.CallOption) (Todo_DownloadImageClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_Todo_serviceDesc.Streams[1], "/todopb.Todo/DownloadImage", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &todoDownloadImageClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type Todo_DownloadImageClient interface {
+	Recv() (*DownloadImageResponse, error)
+	grpc.ClientStream
+}
+
+type todoDownloadImageClient struct {
+	grpc.ClientStream
+}
+
+func (x *todoDownloadImageClient) Recv() (*DownloadImageResponse, error) {
+	m := new(DownloadImageResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // TodoServer is the server API for Todo service.
 type TodoServer interface {
 	GetTodoByID(context.Context, *TodoByIDRequest) (*TodoByIDResponse, error)
 	UploadImage(Todo_UploadImageServer) error
+	DownloadImage(*DownloadImageRequest, Todo_DownloadImageServer) error
 }
 
 // UnimplementedTodoServer can be embedded to have forward compatible implementations.
@@ -298,6 +406,9 @@ func (*UnimplementedTodoServer) GetTodoByID(ctx context.Context, req *TodoByIDRe
 }
 func (*UnimplementedTodoServer) UploadImage(srv Todo_UploadImageServer) error {
 	return status.Errorf(codes.Unimplemented, "method UploadImage not implemented")
+}
+func (*UnimplementedTodoServer) DownloadImage(req *DownloadImageRequest, srv Todo_DownloadImageServer) error {
+	return status.Errorf(codes.Unimplemented, "method DownloadImage not implemented")
 }
 
 func RegisterTodoServer(s *grpc.Server, srv TodoServer) {
@@ -348,6 +459,27 @@ func (x *todoUploadImageServer) Recv() (*UploadImageRequest, error) {
 	return m, nil
 }
 
+func _Todo_DownloadImage_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(DownloadImageRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(TodoServer).DownloadImage(m, &todoDownloadImageServer{stream})
+}
+
+type Todo_DownloadImageServer interface {
+	Send(*DownloadImageResponse) error
+	grpc.ServerStream
+}
+
+type todoDownloadImageServer struct {
+	grpc.ServerStream
+}
+
+func (x *todoDownloadImageServer) Send(m *DownloadImageResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
 var _Todo_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "todopb.Todo",
 	HandlerType: (*TodoServer)(nil),
@@ -362,6 +494,11 @@ var _Todo_serviceDesc = grpc.ServiceDesc{
 			StreamName:    "UploadImage",
 			Handler:       _Todo_UploadImage_Handler,
 			ClientStreams: true,
+		},
+		{
+			StreamName:    "DownloadImage",
+			Handler:       _Todo_DownloadImage_Handler,
+			ServerStreams: true,
 		},
 	},
 	Metadata: "todo.proto",
