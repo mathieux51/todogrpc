@@ -2,30 +2,35 @@ package main
 
 import (
 	"context"
+	"flag"
 	"io"
 	"io/ioutil"
 	"log"
 	"net"
+	"net/http"
+	"sync"
+
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 
 	pb "github.com/mathieux51/todogrpc/pb"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 )
 
-const (
-	port = ":50051"
+var (
+	grpcServerEndpoint = flag.String("grpc-server-endpoint", "localhost:9090", "gRPC server endpoint")
 )
 
 type todoServer struct{}
 
 // log.Printf("Requested ID: %v", in.Id)
 
-func (s *todoServer) GetTodoByID(ctx context.Context, in *pb.TodoByIDRequest) (*pb.TodoByIDResponse, error) {
+func (s *todoServer) GetTodoByID(ctx context.Context, req *pb.TodoByIDRequest) (*pb.TodoByIDResponse, error) {
 	if md, ok := metadata.FromIncomingContext(ctx); ok {
 		log.Printf("metadata: %v", md)
 	}
 
-	return &pb.TodoByIDResponse{Id: 1, Text: "Time to get Schwifty", Completed: false}, nil
+	return &pb.TodoByIDResponse{Id: req.Id, Text: "Time to get Schwifty", Completed: false}, nil
 }
 
 func (s *todoServer) UploadImage(stream pb.Todo_UploadImageServer) error {
@@ -62,23 +67,49 @@ func (s *todoServer) DownloadImage(req *pb.DownloadImageRequest, stream pb.Todo_
 }
 
 func main() {
-	l, err := net.Listen("tcp", port)
-	if err != nil {
-		log.Fatalf("failed to listen on port %v: %v", port, err)
-	}
 
-	s := grpc.NewServer()
-
-	pb.RegisterTodoServer(s, &todoServer{})
-
-	done := make(chan bool)
+	var wg sync.WaitGroup
+	wg.Add(1)
 	go func() {
-		err = s.Serve(l)
-	}()
-	if err != nil {
-		log.Fatalf("failed to serve: %v", err)
-	}
+		defer wg.Done()
 
-	log.Printf("listening on port %v", port)
-	<-done
+		port := "50051"
+
+		l, err := net.Listen("tcp", ":"+port)
+		if err != nil {
+			log.Fatalf("failed to listen on port %v: %v", port, err)
+		}
+
+		s := grpc.NewServer()
+		pb.RegisterTodoServer(s, &todoServer{})
+
+		err = s.Serve(l)
+		if err != nil {
+			log.Fatalf("failed to serve: %v", err)
+		}
+		log.Printf("RegisterTodoServer: listening on port %v", port)
+	}()
+
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		ctx := context.Background()
+		ctx, cancel := context.WithCancel(ctx)
+		defer cancel()
+
+		// Register gRPC server endpoint
+		mux := runtime.NewServeMux()
+		opts := []grpc.DialOption{grpc.WithInsecure()}
+		err := pb.RegisterTodoHandlerFromEndpoint(ctx, mux, *grpcServerEndpoint, opts)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		// Start HTTP server (and proxy calls to gRPC server endpoint)
+		port := "8081"
+		log.Printf("RegisterTodoHandlerFromEndpoint: listening on port %v", port)
+		http.ListenAndServe(":"+port, mux)
+	}()
+
+	wg.Wait()
 }

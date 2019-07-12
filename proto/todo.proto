@@ -3,6 +3,8 @@ syntax = "proto3";
 package todopb;
 // option go_package = "mathieux51/todogrpc/pb";
 
+import "google/api/annotations.proto";
+
 message TodoByIDRequest { int32 id = 1; }
 
 message TodoByIDResponse {
@@ -20,7 +22,11 @@ message DownloadImageRequest {}
 message DownloadImageResponse { bytes data = 1; }
 
 service Todo {
-  rpc GetTodoByID(TodoByIDRequest) returns (TodoByIDResponse) {}
+  rpc GetTodoByID(TodoByIDRequest) returns (TodoByIDResponse) {
+    option (google.api.http) = {
+      get : "/v1/todos/{id}"
+    };
+  }
   rpc UploadImage(stream UploadImageRequest) returns (UploadImageResponse) {}
   rpc DownloadImage(DownloadImageRequest)
       returns (stream DownloadImageResponse) {}
