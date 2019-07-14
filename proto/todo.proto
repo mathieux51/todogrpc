@@ -5,7 +5,9 @@ package todopb;
 
 import "google/api/annotations.proto";
 
-message TodoByIDRequest { int32 id = 1; }
+message TodoByIDRequest {
+  int32 id = 1;
+}
 
 message TodoByIDResponse {
   int32 id = 1;
@@ -13,18 +15,22 @@ message TodoByIDResponse {
   bool completed = 3;
 }
 
-message UploadImageRequest { bytes data = 1; }
+message UploadImageRequest {
+  bytes data = 1;
+}
 
 message UploadImageResponse {}
 
 message DownloadImageRequest {}
 
-message DownloadImageResponse { bytes data = 1; }
+message DownloadImageResponse {
+  bytes data = 1;
+}
 
 service Todo {
   rpc GetTodoByID(TodoByIDRequest) returns (TodoByIDResponse) {
     option (google.api.http) = {
-      get : "/v1/todos/{id}"
+      get: "/v1/todos/{id}"
     };
   }
   rpc UploadImage(stream UploadImageRequest) returns (UploadImageResponse) {}
