@@ -7,6 +7,6 @@ A small project to get my hands on grpc with Go
 - [x] Add client (Golang or JavaScript)
 - [x] Client streaming
 - [x] Server streaming
-- [ ] Gateway
+- [ ] Gateway with two different services in different go routines
 - [ ] Add gqlgen
 - [ ] Check performance
